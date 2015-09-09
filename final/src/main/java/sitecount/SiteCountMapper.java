@@ -1,3 +1,5 @@
+package sitecount;
+
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -48,10 +50,6 @@ public class SiteCountMapper extends Mapper<LongWritable, Text, Text, Text> {
                 new Text(address),
                 new Text(getMapperValue(responseTime, bytes))
         );
-
-
-
-
     }
 
     private String getMapperValue(String responseTime, String bytes) {

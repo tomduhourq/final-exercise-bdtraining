@@ -1,3 +1,5 @@
+package sitecount;
+
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
@@ -26,9 +28,12 @@ public class SiteCountReducer extends Reducer<Text, Text, Text, Text> {
             count += 1;
         }
 
+        // Check unit tests for output format.
         context.write(
-                key,
-                new Text(sumResponseTime/count + SiteCountMapper.SEPARATOR + sumSize/count)
+                new Text(count+""),
+                new Text(key + SiteCountMapper.SEPARATOR +
+                        sumResponseTime/count + SiteCountMapper.SEPARATOR +
+                        sumSize/count)
         );
     }
 }
