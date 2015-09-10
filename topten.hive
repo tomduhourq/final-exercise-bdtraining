@@ -1,0 +1,3 @@
+CREATE EXTERNAL TABLE IF NOT EXISTS logs (domain STRING, respTime STRING) ROW FORMAT SERDE 'org.apache.hadoop.hive.contrib.serde2.RegexSerDe' WITH SERDEPROPERTIES ("input.regex" = "(url=\"https?://([^/:]+)[/:]) (fullreqtime=\"([0-9]+)\")", "output.format.string" = "%1$s %2$s") location '/user/hadoop/mapreduce/data/proxy_logs';
+
+SELECT domain, AVG(cast(respTime as int)) AS AVG_REQ FROM logs WHERE NOT(domain like '%globant%') GROUP BY domain ORDER BY AVG_REQ DESC LIMIT 10; 
